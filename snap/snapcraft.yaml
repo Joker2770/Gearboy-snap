@@ -36,7 +36,7 @@ layout:
 
 apps:
   gearboy:
-    command: usr/local/bin/gearboy
+    command: gearboy
     command-chain: ["snap/command-chain/alsa-launch"]
     environment:
       # pulseaudio
