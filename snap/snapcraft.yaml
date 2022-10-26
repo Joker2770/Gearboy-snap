@@ -75,7 +75,7 @@ parts:
     source-branch: master
     source-subdir: platforms/linux
     # source: ../
-    # artifacts: [gearboy]
+    artifacts: [gearboy, gamecontrollerdb.txt]
     build-packages:
       - gcc
       - make
@@ -85,9 +85,4 @@ parts:
     stage-packages:
       - libsdl2-2.0-0
       - libglew2.0
-    override-build: |
-      make
-      mkdir -p ${SNAPCRAFT_PART_INSTALL}/usr/local/bin
-      cp ./gearboy ${SNAPCRAFT_PART_INSTALL}/usr/local/bin/
-      cp ./gamecontrollerdb.txt ${SNAPCRAFT_PART_INSTALL}/usr/local/bin/
 
