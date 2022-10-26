@@ -37,11 +37,16 @@ layout:
 apps:
   gearboy:
     command: usr/local/bin/gearboy
+    command-chain: ["snap/command-chain/alsa-launch"]
+    environment:
+      # pulseaudio
+      LD_LIBRARY_PATH: ${SNAP}/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio
     extensions: [gnome-3-28]
     plugs:
       - home
       - alsa
       - audio-playback
+      - pulseaudio
       - desktop
       - desktop-legacy
       - gsettings
@@ -81,7 +86,7 @@ parts:
       - libsdl2-2.0-0
       - libglew2.0
     override-build: |
-      snapcraftctl build
+      make
       mkdir -p ${SNAPCRAFT_PART_INSTALL}/usr/local/bin
       cp ./gearboy ${SNAPCRAFT_PART_INSTALL}/usr/local/bin/
       cp ./gamecontrollerdb.txt ${SNAPCRAFT_PART_INSTALL}/usr/local/bin/
