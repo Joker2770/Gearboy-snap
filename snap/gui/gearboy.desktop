@@ -2,7 +2,7 @@
 Version=3.4.1
 Encoding=UTF-8
 Name=Gearboy
-Comment=A simple Linux system resources monitor.
+Comment=A cross-platform Game Boy / Game Boy Color emulator.
 Exec=gearboy
 Terminal=false
 Type=Application
