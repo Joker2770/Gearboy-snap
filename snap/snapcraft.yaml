@@ -76,7 +76,7 @@ parts:
     source-tag: "3.5.0"
     source-subdir: platforms/linux
     # source: ../
-    artifacts: [gearboy, gamecontrollerdb.txt]
+    artifacts: [gearboy]
     build-packages:
       - gcc
       - make
