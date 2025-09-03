@@ -10,21 +10,27 @@ description: |
 
 grade: stable # must be 'stable' to release into candidate/stable channels
 confinement: strict # use 'strict' once you have the right plugs and slots
-base: core20
+base: core22
 
-plugs: # plugs for theming, font settings, cursor and to use gtk3 file chooser
+plugs:
+  desktop:
+    mount-host-font-cache: false
   gtk-3-themes:
     interface: content
     target: $SNAP/data-dir/themes
-    default-provider: gtk-common-themes:gtk-3-themes
+    default-provider: gtk-common-themes
   icon-themes:
     interface: content
     target: $SNAP/data-dir/icons
-    default-provider: gtk-common-themes:icon-themes
+    default-provider: gtk-common-themes
   sound-themes:
     interface: content
     target: $SNAP/data-dir/sounds
-    default-provider: gtk-common-themes:sounds-themes
+    default-provider: gtk-common-themes
+  gnome-42-2204:
+    interface: content
+    target: $SNAP/gnome-platform
+    default-provider: gnome-42-2204
 
 layout:
   /etc/fonts:
@@ -33,6 +39,18 @@ layout:
     bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/alsa-lib
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libgweather-4:
+    symlink: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/libgweather-4
+  /usr/lib/evolution-data-server:
+    symlink: $SNAP/usr/lib/evolution-data-server
+  /usr/bin/gnome-control-center:
+    symlink: $SNAP/usr/bin/gnome-control-center
+  /usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.0:
+    bind: $SNAP/gnome-platform/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/webkit2gtk-4.0
+  /usr/share/xml/iso-codes:
+    bind: $SNAP/gnome-platform/usr/share/xml/iso-codes
+  /usr/share/libdrm:
+    bind: $SNAP/gnome-platform/usr/share/libdrm
 
 apps:
   gearboy:
@@ -41,7 +59,9 @@ apps:
     environment:
       # pulseaudio
       LD_LIBRARY_PATH: ${SNAP}/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio
-    extensions: [gnome-3-38]
+      SNAP_DESKTOP_RUNTIME: $SNAP/gnome-platform
+      GTK_USE_PORTAL: '1'
+    extensions: [gnome]
     plugs:
       - home
       - alsa
@@ -55,6 +75,7 @@ apps:
       - x11
       - opengl
       - removable-media
+      - mount-observe
       - joystick
 
 parts:
