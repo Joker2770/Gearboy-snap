@@ -76,7 +76,7 @@ parts:
     source-tag: "3.6.1"
     source-subdir: platforms/linux
     # source: ../
-    artifacts: [gearboy]
+    # artifacts: [gearboy]
     build-packages:
       - gcc
       - make
