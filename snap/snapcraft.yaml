@@ -104,7 +104,12 @@ parts:
       - build-essential
       - libsdl2-dev
       - libglew-dev
+      - libgtk-3-dev
     stage-packages:
       - libsdl2-2.0-0
       - libglew2.2
+    override-build: |
+      make -j $(nproc)
+      mkdir -p ${CRAFT_PART_INSTALL}/usr/local/bin
+      cp ./gearboy ${CRAFT_PART_INSTALL}/usr/local/bin/
 
