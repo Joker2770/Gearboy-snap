@@ -58,7 +58,7 @@ apps:
     command-chain: ["snap/command-chain/alsa-launch"]
     environment:
       # pulseaudio
-      LD_LIBRARY_PATH: ${SNAP}/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/local/lib"
       SNAP_DESKTOP_RUNTIME: $SNAP/gnome-platform
       GTK_USE_PORTAL: '1'
     extensions: [gnome]
