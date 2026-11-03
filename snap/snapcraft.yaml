@@ -15,42 +15,14 @@ base: core26
 plugs:
   desktop:
     mount-host-font-cache: false
-  gtk-3-themes:
-    interface: content
-    target: $SNAP/data-dir/themes
-    default-provider: gtk-common-themes
-  icon-themes:
-    interface: content
-    target: $SNAP/data-dir/icons
-    default-provider: gtk-common-themes
-  sound-themes:
-    interface: content
-    target: $SNAP/data-dir/sounds
-    default-provider: gtk-common-themes
-  gnome-48-2604:
-    interface: content
-    target: $SNAP/gnome-platform
-    default-provider: gnome-48-2604
 
 layout:
   /etc/fonts:
     bind: $SNAP/etc/fonts
-  /usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib:
-    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib
+  /usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib:
+    bind: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/alsa-lib
   /usr/share/alsa:
     bind: $SNAP/usr/share/alsa
-  /usr/lib/$CRAFT_ARCH_TRIPLET/libgweather-4:
-    symlink: $SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/libgweather-4
-  /usr/lib/evolution-data-server:
-    symlink: $SNAP/usr/lib/evolution-data-server
-  /usr/bin/gnome-control-center:
-    symlink: $SNAP/usr/bin/gnome-control-center
-  /usr/lib/$CRAFT_ARCH_TRIPLET/webkit2gtk-4.0:
-    bind: $SNAP/gnome-platform/usr/lib/$CRAFT_ARCH_TRIPLET/webkit2gtk-4.0
-  /usr/share/xml/iso-codes:
-    bind: $SNAP/gnome-platform/usr/share/xml/iso-codes
-  /usr/share/libdrm:
-    bind: $SNAP/gnome-platform/usr/share/libdrm
 
 apps:
   gearboy:
@@ -58,7 +30,7 @@ apps:
     command-chain: ["snap/command-chain/alsa-launch"]
     environment:
       # pulseaudio
-      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET:$SNAP/usr/local/lib"
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR/pulseaudio:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/local/lib"
       SNAP_DESKTOP_RUNTIME: $SNAP/gnome-platform
       GTK_USE_PORTAL: '1'
     extensions: [gnome]
@@ -103,10 +75,8 @@ parts:
       - build-essential
       - libsdl3-dev
       - libgl-dev
-      - libglew-dev
     stage-packages:
       - libsdl3-0
-      - libglew2.2
     override-build: |
       cd ${CRAFT_PART_SRC}/platforms/linux
       make -j $(nproc)
