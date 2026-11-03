@@ -55,12 +55,6 @@ parts:
     plugin: dump
     source: https://github.com/diddlesnaps/snapcraft-alsa.git
     source-subdir: snapcraft-assets
-    build-packages:
-      - libasound2-dev
-    stage-packages:
-      - libasound2
-      - libasound2-plugins
-      - yad
   gearboy:
     after: [alsa-mixin]
     plugin: make
@@ -77,6 +71,9 @@ parts:
       - libgl-dev
     stage-packages:
       - libsdl3-0
+      - libasound2t64
+      - libasound2-plugins
+      - yad
     override-build: |
       cd ${CRAFT_PART_SRC}/platforms/linux
       make -j $(nproc)
